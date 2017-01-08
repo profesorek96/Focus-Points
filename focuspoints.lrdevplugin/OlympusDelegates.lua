@@ -35,7 +35,7 @@
                     the same size.
   2017-01-07 - MJ Fix math bug in rotated images
 
-TODO: Verify math by comparing focus point locations with in-camera views. 
+TODO: Verify math by comparing focus point locations with in-camera views.
 
 --]]
 
@@ -49,6 +49,7 @@ OlympusDelegates = {}
 -- metaData - the metadata as read by exiftool
 --]]
 function OlympusDelegates.getAfPoints(photo, metaData)
+  log("-- OlympusDelegates --")
   -- find selected AF point
   local focusPoint = ExifUtils.findFirstMatchingValue(metaData, { "AF Point Selected" })
   if focusPoint == nil then
@@ -74,8 +75,8 @@ function OlympusDelegates.getAfPoints(photo, metaData)
   local afArea = ExifUtils.findFirstMatchingValue(metaData, { "AF Areas" })
   local afAreaX1, afAreaY1, afAreaX2, afAreaY2 = string.match(afArea, "%((%d+),(%d+)%)%-%((%d+),(%d+)%)" )
   local afAreaWidth = 300
-  local afAreaHeight = 300 
-  
+  local afAreaHeight = 300
+
   if (afAreaX1 ~= nill and afAreaY1 ~= nill and afAreaX2 ~= nill and afAreaY2 ~= nill ) then
       afAreaWidth = math.floor((tonumber(afAreaX2) - tonumber(afAreaX1)) * tonumber(orgPhotoWidth)/255)
       afAreaHeight = math.floor((tonumber(afAreaY2) - tonumber(afAreaY1)) * tonumber(orgPhotoHeight)/255)
